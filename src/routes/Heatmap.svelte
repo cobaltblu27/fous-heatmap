@@ -4,6 +4,8 @@
   import type { Coordinate } from "./types";
   // @ts-ignore
   import RangeSlider from "svelte-range-slider-pips";
+  import { writable } from "svelte/store";
+  import Page from "./+page.svelte";
 
   export let coordinates: Coordinate[];
 
@@ -64,7 +66,7 @@
     canvas.height = CANVAS_HEIGHT;
     canvas.width = CANVAS_WIDTH;
     const heatmapData = getHeatmapData(coordinates);
-    draw(heatmapData)
+    draw(heatmapData);
   });
 
   $: {
@@ -85,11 +87,7 @@
 
 <style>
   .heatmap-container {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 36px 0 0 0;
-  }
-
-  .heatmap-canvas {
+    display: flex;
+    flex-direction: column;
   }
 </style>
