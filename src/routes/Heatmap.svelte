@@ -10,7 +10,7 @@
   export let coordinates: Coordinate[];
 
   const CANVAS_WIDTH = 540;
-  const CANVAS_HEIGHT = 240;
+  const CANVAS_HEIGHT = 270;
   const HEATMAP_RADIUS = 32;
 
   let canvas: HTMLCanvasElement | null;
@@ -36,8 +36,8 @@
           if (dist > HEATMAP_RADIUS) {
             continue;
           }
-          const wrapX = canvasX + (i % CANVAS_WIDTH);
-          const wrapY = canvasY + (j % CANVAS_HEIGHT);
+          const wrapX = (canvasX + i) % CANVAS_WIDTH;
+          const wrapY = (canvasY + j) % CANVAS_HEIGHT;
           const heat = 1 - dist / HEATMAP_RADIUS;
           if (heatmapData[wrapX][wrapY] < heat) {
             heatmapData[wrapX][wrapY] = heat;
