@@ -24,7 +24,7 @@
 
     coordinates.forEach((coord) => {
       const { x, y, z } = coord;
-      const phi = Math.atan(x / z) + Math.PI;
+      const phi = Math.atan2(x, z) + Math.PI;
       const rSinTheta = Math.sqrt(x * x + z * z);
       const theta = Math.PI / 2 - Math.atan(y / rSinTheta);
       const canvasX = Math.round(r * phi);
