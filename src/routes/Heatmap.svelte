@@ -4,8 +4,6 @@
   import type { Coordinate } from "./types";
   // @ts-ignore
   import RangeSlider from "svelte-range-slider-pips";
-  import { writable } from "svelte/store";
-  import Page from "./+page.svelte";
 
   export let coordinates: Coordinate[];
 
@@ -15,6 +13,7 @@
 
   let canvas: HTMLCanvasElement | null;
   let values = [0, coordinates.length - 1];
+  $: appliedRange = [0, coordinates.length - 1];
 
   const getHeatmapData = (coordinates: Coordinate[]) => {
     const heatmapData: number[][] = Array(CANVAS_WIDTH)
@@ -61,6 +60,10 @@
     );
   };
 
+  const changeRange = () => {
+    appliedRange = [...values];
+  };
+
   onMount(() => {
     if (canvas == null) return;
     canvas.height = CANVAS_HEIGHT;
@@ -70,7 +73,7 @@
   });
 
   $: {
-    let rangedCoords = coordinates.slice(values[0], values[1]);
+    let rangedCoords = coordinates.slice(appliedRange[0], appliedRange[1]);
     const heatmapData = getHeatmapData(rangedCoords);
     draw(heatmapData);
   }
@@ -78,6 +81,9 @@
 
 <div class="heatmap-container">
   <RangeSlider bind:values range={true} min={0} max={coordinates.length} pips />
+  <div class="button-container">
+    <button class="button-white" on:click={changeRange}>apply range</button>
+  </div>
   <canvas
     bind:this={canvas}
     class="heatmap-canvas"
@@ -86,6 +92,17 @@
 </div>
 
 <style>
+  .button-container {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    margin-bottom: 8px;
+  }
+
+  .button-white {
+    width: 140px;
+  }
+
   .heatmap-container {
     display: flex;
     flex-direction: column;

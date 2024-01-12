@@ -28,7 +28,6 @@
 <section>
   <div style="height: 40px">
     <input
-      class="button-white"
       accept="application/json"
       bind:files
       id="file-input"
