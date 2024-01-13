@@ -35,8 +35,8 @@
           if (dist > HEATMAP_RADIUS) {
             continue;
           }
-          const wrapX = (canvasX + i) % CANVAS_WIDTH;
-          const wrapY = (canvasY + j) % CANVAS_HEIGHT;
+          const wrapX = (canvasX + i + CANVAS_WIDTH) % CANVAS_WIDTH;
+          const wrapY = (canvasY + j + CANVAS_HEIGHT) % CANVAS_HEIGHT;
           const heat = 1 - dist / HEATMAP_RADIUS;
           if (heatmapData[wrapX][wrapY] < heat) {
             heatmapData[wrapX][wrapY] = heat;
